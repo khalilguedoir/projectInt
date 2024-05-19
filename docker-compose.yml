@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  spring_app:
+    build:
+      context: ./com.inn.cafe
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8082"
+    depends_on:
+      - mysql_db
+  angular_app:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - spring_app 
+
+  mysql_db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cafesystem
+
+
